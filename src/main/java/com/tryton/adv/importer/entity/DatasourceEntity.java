@@ -1,17 +1,25 @@
 package com.tryton.adv.importer.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "datasource")
 @NamedQueries({
@@ -21,7 +29,10 @@ import javax.persistence.Table;
 public class DatasourceEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
+    @SequenceGenerator(name = "ds_entity_seq", sequenceName = "ds_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ds_entity_seq")
     @Basic(optional = false)
     @Column(name = "ds_id")
     private Long id;

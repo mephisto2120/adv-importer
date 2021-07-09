@@ -1,6 +1,7 @@
 package com.tryton.adv.importer.service;
 
 import com.tryton.adv.importer.model.Advertisement;
+import org.springframework.stereotype.Component;
 import org.supercsv.cellprocessor.ParseDate;
 import org.supercsv.cellprocessor.ParseInt;
 import org.supercsv.cellprocessor.constraint.NotNull;
@@ -14,6 +15,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class CsvReader {
 
     public List<Advertisement> read(Reader reader) throws IOException {

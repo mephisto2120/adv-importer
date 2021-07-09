@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `adv_db`.`metrics` (
     `met_id` BIGINT(20) NOT NULL,
     `met_clicks` INT NOT NULL,
     `met_impressions` INT NOT NULL,
-    `met_daily` TIMESTAMP NOT NULL,
+    `met_daily` DATE NOT NULL,
     `campaign_cpg_id` BIGINT(20) NOT NULL,
     PRIMARY KEY (`met_id`),
     CONSTRAINT `fk_metrics_campaign1`
@@ -63,6 +63,9 @@ CREATE TABLE IF NOT EXISTS `adv_db`.`metrics` (
 
 CREATE INDEX `fk_metrics_campaign1_idx` ON `adv_db`.`metrics` (`campaign_cpg_id` ASC) VISIBLE;
 
+CREATE SEQUENCE IF NOT EXISTS `cpg_seq`;
+CREATE SEQUENCE IF NOT EXISTS `ds_seq`;
+CREATE SEQUENCE IF NOT EXISTS `met_seq`;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

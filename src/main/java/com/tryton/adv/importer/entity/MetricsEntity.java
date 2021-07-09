@@ -1,19 +1,27 @@
 package com.tryton.adv.importer.entity;
 
-import java.io.Serializable;
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.io.Serializable;
+import java.util.Date;
 
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "metrics")
 @NamedQueries({
@@ -25,7 +33,10 @@ import javax.persistence.TemporalType;
 public class MetricsEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
+    @SequenceGenerator(name = "met_entity_seq", sequenceName = "met_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "met_entity_seq")
     @Basic(optional = false)
     @Column(name = "met_id")
     private Long id;
@@ -37,7 +48,7 @@ public class MetricsEntity implements Serializable {
     private int impressions;
     @Basic(optional = false)
     @Column(name = "met_daily")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date daily;
     @JoinColumn(name = "campaign_cpg_id", referencedColumnName = "cpg_id")
     @ManyToOne(optional = false)

@@ -1,19 +1,27 @@
 package com.tryton.adv.importer.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "campaign")
 @NamedQueries({
@@ -23,7 +31,10 @@ import javax.persistence.Table;
 public class CampaignEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
+    @SequenceGenerator(name = "cpg_entity_seq", sequenceName = "cpg_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usr_entity_seq")
     @Basic(optional = false)
     @Column(name = "cpg_id")
     private Long id;
