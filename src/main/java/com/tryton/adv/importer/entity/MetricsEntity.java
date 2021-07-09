@@ -42,7 +42,7 @@ public class MetricsEntity implements Serializable {
     @Column(name = "met_daily")
     @Temporal(TemporalType.DATE)
     private Date daily;
-    @JoinColumn(name = "campaign_cpg_id", referencedColumnName = "cpg_id")
+    @JoinColumn(name = "met_cpg_id", referencedColumnName = "cpg_id")
     @ManyToOne(optional = false)
     private CampaignEntity campaignCpgId;
 

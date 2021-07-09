@@ -53,15 +53,15 @@ CREATE TABLE IF NOT EXISTS `adv_db`.`metrics` (
     `met_clicks` INT NOT NULL,
     `met_impressions` INT NOT NULL,
     `met_daily` DATE NOT NULL,
-    `campaign_cpg_id` BIGINT(20) NOT NULL,
+    `met_cpg_id` BIGINT(20) NOT NULL,
     PRIMARY KEY (`met_id`),
     CONSTRAINT `fk_metrics_campaign1`
-    FOREIGN KEY (`campaign_cpg_id`)
+    FOREIGN KEY (`met_cpg_id`)
     REFERENCES `adv_db`.`campaign` (`cpg_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-CREATE INDEX `fk_metrics_campaign1_idx` ON `adv_db`.`metrics` (`campaign_cpg_id` ASC) VISIBLE;
+CREATE INDEX `fk_metrics_campaign1_idx` ON `adv_db`.`metrics` (`met_cpg_id` ASC) VISIBLE;
 
 CREATE SEQUENCE IF NOT EXISTS `cpg_seq`;
 CREATE SEQUENCE IF NOT EXISTS `ds_seq`;

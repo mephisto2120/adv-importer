@@ -55,6 +55,13 @@ public class StandardAdvertisementWriter implements AdvertisementWriter {
 
         MetricsEntity metricsEntity = metricsEntityBuilder.build();
         Optional<MetricsEntity> byCampaignCpgIdAndDaily = metricsRepository.findByCampaignCpgIdAndDaily(metricsEntity.getCampaignCpgId(), metricsEntity.getDaily());
+
+//        CampaignEntity campaignCpgId = metricsEntity.getCampaignCpgId();
+//        Optional<MetricsEntity> byCampaignCpgIdAndDaily = metricsRepository.findByDatasourceNameAndCampaignIdAndDaily(
+//                campaignCpgId.getCpgDsId().getName(),
+//                campaignCpgId.getName(),
+//                metricsEntity.getDaily());
+
         OptionalConsumer.of(byCampaignCpgIdAndDaily)
                 .ifPresent(metrics -> log.info(format("Metrics for campaign: %s metrics, day: %s already exists with id: %d", metrics.getCampaignCpgId().getName(), metrics.getDaily(), metrics.getId())))
                 .ifNotPresent(() -> saveMetrics(metricsEntity));
