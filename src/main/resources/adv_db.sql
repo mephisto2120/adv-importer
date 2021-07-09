@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `adv_db`.`campaign` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-CREATE UNIQUE INDEX `c_name_UNIQUE` ON `adv_db`.`campaign` (`cpg_name` ASC) VISIBLE;
+CREATE UNIQUE INDEX `c_name_UNIQUE` ON `adv_db`.`campaign` (`cpg_ds_id` ASC, `cpg_name` ASC) VISIBLE;
 
 CREATE INDEX `fk_campaign_datasource_idx` ON `adv_db`.`campaign` (`cpg_ds_id` ASC) VISIBLE;
 

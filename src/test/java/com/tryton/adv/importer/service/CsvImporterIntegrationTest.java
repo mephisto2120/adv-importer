@@ -61,7 +61,7 @@ class CsvImporterIntegrationTest {
         csvImporter.importCsv(inputStreamReader);
 
         //then
-        assertThat(metricsRepository.findAll()).hasSize(13818);
+        assertThat(metricsRepository.findAll()).hasSize(23198);
     }
 
     private InputStreamReader getInputStreamReader(String smallCsvFile) {

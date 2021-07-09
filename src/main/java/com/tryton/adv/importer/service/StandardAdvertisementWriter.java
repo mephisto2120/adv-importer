@@ -44,7 +44,8 @@ public class StandardAdvertisementWriter implements AdvertisementWriter {
                 .ifPresent(campaignEntityBuilder::cpgDsId)
                 .ifNotPresent(() -> setSavedDataSource(advertisement, campaignEntityBuilder));
 
-        Optional<CampaignEntity> campaignRepositoryByName = campaignRepository.findByName(advertisement.getCampaign());
+        log.info("Checking if campaign " + advertisement.getCampaign() + " already exists");
+        Optional<CampaignEntity> campaignRepositoryByName = campaignRepository.findByNameAndCpgDsId(advertisement.getCampaign(), campaignEntityBuilder.build().getCpgDsId());
         MetricsEntity.MetricsEntityBuilder metricsEntityBuilder = MetricsEntity.builder()
                 .daily(advertisement.getDaily())
                 .clicks(advertisement.getClicks())
@@ -52,15 +53,11 @@ public class StandardAdvertisementWriter implements AdvertisementWriter {
         OptionalConsumer.of(campaignRepositoryByName)
                 .ifPresent(metricsEntityBuilder::campaignCpgId)
                 .ifNotPresent(() -> setSavedCampaign(campaignEntityBuilder, metricsEntityBuilder));
+        log.info("Checking if campaign was found " + metricsEntityBuilder.build().getCampaignCpgId());
 
         MetricsEntity metricsEntity = metricsEntityBuilder.build();
+        log.info("Checking if " + advertisement + " already exists");
         Optional<MetricsEntity> byCampaignCpgIdAndDaily = metricsRepository.findByCampaignCpgIdAndDaily(metricsEntity.getCampaignCpgId(), metricsEntity.getDaily());
-
-//        CampaignEntity campaignCpgId = metricsEntity.getCampaignCpgId();
-//        Optional<MetricsEntity> byCampaignCpgIdAndDaily = metricsRepository.findByDatasourceNameAndCampaignIdAndDaily(
-//                campaignCpgId.getCpgDsId().getName(),
-//                campaignCpgId.getName(),
-//                metricsEntity.getDaily());
 
         OptionalConsumer.of(byCampaignCpgIdAndDaily)
                 .ifPresent(metrics -> log.info(format("Metrics for campaign: %s metrics, day: %s already exists with id: %d", metrics.getCampaignCpgId().getName(), metrics.getDaily(), metrics.getId())))
