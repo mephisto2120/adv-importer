@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,12 +22,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "metrics")
-@NamedQueries({
-        @NamedQuery(name = "MetricsEntity.findAll", query = "SELECT m FROM MetricsEntity m"),
-        @NamedQuery(name = "MetricsEntity.findByMetId", query = "SELECT m FROM MetricsEntity m WHERE m.id = :metId"),
-        @NamedQuery(name = "MetricsEntity.findByMetClicks", query = "SELECT m FROM MetricsEntity m WHERE m.clicks = :metClicks"),
-        @NamedQuery(name = "MetricsEntity.findByMetImpressions", query = "SELECT m FROM MetricsEntity m WHERE m.impressions = :metImpressions"),
-        @NamedQuery(name = "MetricsEntity.findByMetDaily", query = "SELECT m FROM MetricsEntity m WHERE m.daily = :metDaily")})
 public class MetricsEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

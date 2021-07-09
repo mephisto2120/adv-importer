@@ -2,6 +2,7 @@ package com.tryton.adv.importer.service;
 
 import com.tryton.adv.importer.model.Advertisement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class CsvImporter {
     private final AdvertisementWriter advertisementWriter;
 
     @Autowired
-    public CsvImporter(CsvReader csvReader, AdvertisementWriter advertisementWriter) {
+    public CsvImporter(CsvReader csvReader, @Qualifier("retryableAdvertisementWriter") AdvertisementWriter advertisementWriter) {
         this.csvReader = requireNonNull(csvReader);
         this.advertisementWriter = requireNonNull(advertisementWriter);
     }

@@ -15,4 +15,14 @@ public class DataSourceProperties {
     private String password;
     @Value("${spring.datasource.driver-class-name}")
     private String driverClassName;
+    @Value("${spring.datasource.tomcat.initial-size}")
+    private int initialSize;
+    @Value("${spring.datasource.tomcat.max-wait}")
+    private int maxWait;
+    @Value("${spring.datasource.tomcat.max-active}")
+    private int maxActive;
+    @Value("${spring.datasource.tomcat.max-idle}")
+    private int maxIdle;
+    @Value("${spring.datasource.tomcat.min-idle}")
+    private int minIdle;
 }

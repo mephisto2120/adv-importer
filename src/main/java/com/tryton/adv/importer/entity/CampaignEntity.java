@@ -3,8 +3,6 @@ package com.tryton.adv.importer.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
-import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,20 +12,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
 @Entity
 @Table(name = "campaign")
-@NamedQueries({
-        @NamedQuery(name = "CampaignEntity.findAll", query = "SELECT c FROM CampaignEntity c"),
-        @NamedQuery(name = "CampaignEntity.findByCpgId", query = "SELECT c FROM CampaignEntity c WHERE c.id = :cpgId"),
-        @NamedQuery(name = "CampaignEntity.findByCpgName", query = "SELECT c FROM CampaignEntity c WHERE c.name = :cpgName")})
 public class CampaignEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

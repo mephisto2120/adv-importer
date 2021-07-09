@@ -26,11 +26,16 @@ public class PersistenceConfig {
 
     @Bean
     public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        org.apache.tomcat.jdbc.pool.DataSource dataSource = new org.apache.tomcat.jdbc.pool.DataSource();
         dataSource.setDriverClassName(dataSourceProperties.getDriverClassName());
         dataSource.setUsername(dataSourceProperties.getUsername());
         dataSource.setPassword(dataSourceProperties.getPassword());
         dataSource.setUrl(dataSourceProperties.getUrl());
+        dataSource.setInitialSize(dataSourceProperties.getInitialSize());
+        dataSource.setMaxWait(dataSourceProperties.getMaxWait());
+        dataSource.setMaxActive(dataSourceProperties.getMaxActive());
+        dataSource.setMaxIdle(dataSourceProperties.getMaxIdle());
+        dataSource.setMinIdle(dataSourceProperties.getMinIdle());
         return dataSource;
     }
 

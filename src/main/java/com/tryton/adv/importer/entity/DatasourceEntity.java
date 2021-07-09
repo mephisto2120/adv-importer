@@ -22,10 +22,6 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "datasource")
-@NamedQueries({
-        @NamedQuery(name = "DatasourceEntity.findAll", query = "SELECT d FROM DatasourceEntity d"),
-        @NamedQuery(name = "DatasourceEntity.findByDsId", query = "SELECT d FROM DatasourceEntity d WHERE d.id = :dsId"),
-        @NamedQuery(name = "DatasourceEntity.findByDsName", query = "SELECT d FROM DatasourceEntity d WHERE d.name = :dsName")})
 public class DatasourceEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
