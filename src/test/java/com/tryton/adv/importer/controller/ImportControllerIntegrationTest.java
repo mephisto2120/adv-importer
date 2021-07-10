@@ -1,26 +1,33 @@
-package com.tryton.adv.importer.service;
+package com.tryton.adv.importer.controller;
 
 import com.tryton.adv.importer.repository.CampaignRepository;
 import com.tryton.adv.importer.repository.DatasourceRepository;
 import com.tryton.adv.importer.repository.MetricsRepository;
+import com.tryton.adv.importer.service.ResourceReader;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @ActiveProfiles("test")
 @SpringBootTest
-class CsvImporterIntegrationTest {
+@AutoConfigureMockMvc
+@ExtendWith(SpringExtension.class)
+@Tag("integration")
+class ImportControllerIntegrationTest {
+    private static final String IMPORT_DATA_CSV = "/import/data-csv";
     private static final String SMALL_CSV_FILE = "smallSample.csv";
-    private static final String BIG_CSV_FILE = "dataToImport.csv";
 
     @Autowired
     private ResourceReader resourceReader;
@@ -30,8 +37,9 @@ class CsvImporterIntegrationTest {
     private CampaignRepository campaignRepository;
     @Autowired
     private DatasourceRepository datasourceRepository;
+
     @Autowired
-    private CsvImporter csvImporter;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
@@ -41,35 +49,17 @@ class CsvImporterIntegrationTest {
     }
 
     @Test
-    void importCsv() throws IOException {
+    void shouldImportTwoMetrics() throws Exception {
         //given
-        InputStreamReader inputStreamReader = getInputStreamReader(SMALL_CSV_FILE);
+        String csvAsString = resourceReader.asStringFromPath(SMALL_CSV_FILE);
 
         //when
-        csvImporter.importCsv(inputStreamReader);
+        mockMvc.perform(post(IMPORT_DATA_CSV).content(csvAsString))
+                .andExpect(status().isOk());
 
         //then
         assertThat(datasourceRepository.findAll()).hasSize(1);
         assertThat(campaignRepository.findAll()).hasSize(1);
         assertThat(metricsRepository.findAll()).hasSize(2);
-    }
-
-    @Test
-    void importBigCsv() throws IOException {
-        //given
-        InputStreamReader inputStreamReader = getInputStreamReader(BIG_CSV_FILE);
-
-        //when
-        csvImporter.importCsv(inputStreamReader);
-
-        //then
-        assertThat(datasourceRepository.findAll()).hasSize(3);
-        assertThat(campaignRepository.findAll()).hasSize(185);
-        assertThat(metricsRepository.findAll()).hasSize(23198);
-    }
-
-    private InputStreamReader getInputStreamReader(String smallCsvFile) {
-        InputStream inputStream = resourceReader.resourceAsStream(smallCsvFile);
-        return new InputStreamReader(inputStream, StandardCharsets.UTF_8);
     }
 }
