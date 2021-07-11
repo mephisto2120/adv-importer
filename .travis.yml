@@ -12,3 +12,15 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
   - docker push mephisto2120/adv-importer
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: adv-importer
+  env: Advimporter-env
+  bucket_name: elasticbeanstalk-us-east-2-700196549790
+  bucket_path: adv-docker-importer
+  on:
+    branch: feature/deploy_config
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
