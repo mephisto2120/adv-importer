@@ -20,7 +20,7 @@ deploy:
   bucket_name: elasticbeanstalk-us-east-2-700196549790
   bucket_path: adv-docker-importer
   on:
-    branch: feature/deploy_config
+    branch: main
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key:
     secure: $AWS_SECRET_KEY
