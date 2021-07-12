@@ -1,18 +1,13 @@
 {
-  "AWSEBDockerrunVersion": 2,
-  "containerDefinitions": [
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "mephisto2120/adv-importer",
+    "Update": "true"
+  },
+  "Ports": [
     {
-      "name": "adv-importer",
-      "image": "mephisto2120/adv-importer",
-      "hostname": "adv-importer",
-      "essential": true,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 80
-        }
-      ],
-      "memory": 128
+      "ContainerPort": 8080,
+      "HostPort": 8080
     }
   ]
 }
