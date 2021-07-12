@@ -31,8 +31,6 @@ class CsvReaderTest {
         List<Advertisement> advertisements = csvReader.read(inputStreamReader);
 
         //then
-//        advertisements.forEach(advertisement ->
-//                System.out.println(String.format("advertisement=%s", advertisement)));
         assertThat(advertisements).hasSize(23198);
     }
 
